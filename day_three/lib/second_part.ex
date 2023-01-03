@@ -1,10 +1,10 @@
-defmodule DayThree do
+defmodule DayThree.SecondPart do
   @lowercase_alphabet ?a..?z |> Enum.map(&<<&1>>)
   @uppercase_alphabet ?A..?Z |> Enum.map(&<<&1>>)
 
-  def rucksack_reorganization do
+  def find_badge_by_group do
     get_formatted_input()
-    |> Enum.map(&split_rucksack/1)
+    |> Enum.chunk_every(3)
     |> Enum.map(&find_common/1)
     |> sum_priorities
   end
@@ -15,20 +15,11 @@ defmodule DayThree do
     |> String.split("\n", trim: true)
   end
 
-  defp split_rucksack(rucksack) do
-    half =
-      rucksack
-      |> String.length()
-      |> div(2)
-
-    String.split_at(rucksack, half)
-  end
-
-  defp find_common({compartment1, compartment2}) do
-    compartment1
+  defp find_common([elf1, elf2, elf3]) do
+    elf1
     |> String.split("", trim: true)
     |> Enum.reduce_while(nil, fn item, _ ->
-      case String.contains?(compartment2, item) do
+      case String.contains?(elf2, item) and String.contains?(elf3, item) do
         false -> {:cont, nil}
         true -> {:halt, item}
       end
