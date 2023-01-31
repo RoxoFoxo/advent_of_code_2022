@@ -1,4 +1,4 @@
-defmodule DayFive.FirstPart do
+defmodule DayFive.SecondPart do
   def get_top_crates do
     {crate_drawing, commands} =
       get_formatted_input()
@@ -60,7 +60,6 @@ defmodule DayFive.FirstPart do
     crates_to_move =
       from_column
       |> Enum.take(amount_to_move)
-      |> Enum.reverse()
 
     dest_column_final = crates_to_move ++ dest_column
 
